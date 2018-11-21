@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: account
+    name: tss-report
   # \u6570\u636E\u6E90\u914D\u7F6E
   datasource:
     url: jdbc:mysql://dev.tss.com:3306/njit_report?useUnicode=true&characterEncoding=utf8
@@ -37,3 +37,6 @@ logging:
 management:
   security:
     enabled: false
+
+data:
+  serviceId: TSS-DATA

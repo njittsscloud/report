@@ -1,4 +1,4 @@
-package com.tss.report.interfaces.task.po;
+package com.tss.report.interfaces.task.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
