@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "${data.serviceId}", fallback = DataFeignServiceFallback.class)
 public interface DataFeignService {
 
-    @RequestMapping(value = "/getCourseCurriculumProjectList/{teacherId}", method = RequestMethod.GET)
-    TeacherCourseCurriculumProjectRespVO getTeacherCourseCurriculumProjectList(@PathVariable Long teacherId);
+    @RequestMapping(value = "/curriculum/project/getCourseCurriculumProjectList/{teacherId}", method = RequestMethod.GET)
+    TeacherCourseCurriculumProjectRespVO getTeacherCourseCurriculumProjectList(@PathVariable("teacherId") Long teacherId);
 
 }
