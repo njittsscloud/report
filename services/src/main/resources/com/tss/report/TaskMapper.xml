@@ -33,7 +33,7 @@
         from njit_task
         where id = #{id,jdbcType=BIGINT} and del_flag = 0
     </select>
-    <insert id="insert" parameterType="com.tss.report.services.task.po.Task">
+    <insert id="insert" parameterType="com.tss.report.services.task.po.Task" useGeneratedKeys="true" keyProperty="id">
         insert into njit_task
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
