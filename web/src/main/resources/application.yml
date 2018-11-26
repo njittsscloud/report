@@ -5,14 +5,14 @@ server:
 spring:
   application:
     name: tss-report
-  # \u6570\u636E\u6E90\u914D\u7F6E
+  # 数据源配置
   datasource:
     url: jdbc:mysql://dev.tss.com:3306/njit_report?useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: root
 
-# MyBatis\u914D\u7F6E
+# MyBatis配置
 mybatis:
   mapper-locations: classpath*:com/tss/report/*.xml
 
