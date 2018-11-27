@@ -4,6 +4,7 @@ import com.tss.report.interfaces.task.vo.TeacherTaskReqVO;
 import com.tss.report.interfaces.task.vo.TeacherTaskRespVO;
 import com.tss.report.services.task.po.Task;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface TaskDao {
     int update(Task record);
 
     List<TeacherTaskRespVO> getTeacherTaskList(TeacherTaskReqVO param);
+
+    List<Task> findByCourseIdAndTaskName(@Param("courseId") Long courseId, @Param("name") String name);
 }

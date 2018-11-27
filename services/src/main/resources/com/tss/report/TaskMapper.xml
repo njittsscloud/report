@@ -224,6 +224,13 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
+    
+    <select id="findByCourseIdAndTaskName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from njit_task
+        where del_flag = 0 and course_id = #{courseId} and `name` = #{name}
+    </select>
 
     <resultMap id="getTeacherTaskListResultMap" type="com.tss.report.interfaces.task.vo.TeacherTaskRespVO">
         <id column="id" jdbcType="BIGINT" property="taskId"/>
@@ -259,5 +266,6 @@
         <if test="status != null and status > 0">
             and `status` = #{status}
         </if>
+        order by course_id asc, update_time desc
     </select>
 </mapper>

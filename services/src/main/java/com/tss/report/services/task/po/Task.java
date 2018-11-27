@@ -61,7 +61,7 @@ public class Task {
     /**
      *状态 1待发布 2已发布
      */
-    private String status;
+    private Integer status;
 
     /**
      *课程分配id
@@ -255,11 +255,11 @@ public class Task {
         this.delFlag = delFlag;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

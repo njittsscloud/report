@@ -7,6 +7,7 @@ import com.tss.basic.common.util.ModelMapperUtil;
 import com.tss.basic.site.exception.DataCheckException;
 import com.tss.basic.site.util.TSSAssert;
 import com.tss.report.interfaces.task.TaskInterface;
+import com.tss.report.interfaces.task.enums.TaskStatusEnum;
 import com.tss.report.interfaces.task.vo.*;
 import com.tss.report.services.task.dao.TaskClassDao;
 import com.tss.report.services.task.dao.TaskDao;
@@ -69,6 +70,9 @@ public class TaskService implements TaskInterface {
     public Long createTask(TaskCreateReqVO param) {
         // 实验任务
         Task task = this.buildTask(param);
+        List<Task> taskList = taskDao.findByCourseIdAndTaskName(task.getCourseId(), task.getName());
+        TSSAssert.isEmpty(taskList, "实验名称重复！");
+        
         int count = taskDao.insert(task);
         TSSAssert.isTrue((count > 0 && task.getId() != null), "保存实验任务失败", 
                 () -> LOG.error("save task error, param={}", JsonUtil.obj2json(param)));
@@ -125,6 +129,20 @@ public class TaskService implements TaskInterface {
             return PageInfo.of(taskList);
         }
         return new PageInfo<>();
+    }
+
+    @Override
+    public Boolean publishTask(Long taskId) {
+        Task task = taskDao.findById(taskId);
+        TSSAssert.isNotNull(task, "无效的实验任务id");
+        TSSAssert.isTrue((TaskStatusEnum.WAIT.getStatus().intValue() == task.getStatus().intValue()), "实验任务已发布！");
+
+        task = new Task();
+        task.setId(taskId);
+        task.setStatus(TaskStatusEnum.PUBLISH.getStatus());
+        task.setUpdateTime(new Date());
+        int count = taskDao.update(task);
+        return count > 0;
     }
 
 
