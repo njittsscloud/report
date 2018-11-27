@@ -1,5 +1,7 @@
 package com.tss.report.services.task;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tss.basic.common.util.JsonUtil;
 import com.tss.basic.common.util.ModelMapperUtil;
 import com.tss.basic.site.exception.DataCheckException;
@@ -114,6 +116,16 @@ public class TaskService implements TaskInterface {
         taskClassDao.deleteByTaskId(param.getId());
         this.saveTaskClass(param.getId(), newTask.getName(), param.getClassList());
     }
-    
-    
+
+    @Override
+    public PageInfo<TeacherTaskRespVO> getTeacherTaskList(TeacherTaskReqVO param) {
+        PageHelper.startPage(param.getPageParam().getPageNum(), param.getPageParam().getPageSize());
+        List<TeacherTaskRespVO> taskList = taskDao.getTeacherTaskList(param);
+        if (CollectionUtils.isNotEmpty(taskList)) {
+            return PageInfo.of(taskList);
+        }
+        return new PageInfo<>();
+    }
+
+
 }

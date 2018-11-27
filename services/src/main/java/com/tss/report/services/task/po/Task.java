@@ -59,6 +59,11 @@ public class Task {
     private String desc;
 
     /**
+     *状态 1待发布 2已发布
+     */
+    private String status;
+
+    /**
      *课程分配id
      */
     private Long courseId;
@@ -248,5 +253,13 @@ public class Task {
 
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

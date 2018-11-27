@@ -1,7 +1,11 @@
 package com.tss.report.services.task.dao;
 
+import com.tss.report.interfaces.task.vo.TeacherTaskReqVO;
+import com.tss.report.interfaces.task.vo.TeacherTaskRespVO;
 import com.tss.report.services.task.po.Task;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface TaskDao {
@@ -12,4 +16,5 @@ public interface TaskDao {
 
     int update(Task record);
 
+    List<TeacherTaskRespVO> getTeacherTaskList(TeacherTaskReqVO param);
 }

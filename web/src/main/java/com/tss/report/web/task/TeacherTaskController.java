@@ -1,11 +1,9 @@
 package com.tss.report.web.task;
 
+import com.github.pagehelper.PageInfo;
 import com.tss.basic.site.argumentresolver.JsonParam;
 import com.tss.report.interfaces.task.TaskInterface;
-import com.tss.report.interfaces.task.vo.TaskCreateReqVO;
-import com.tss.report.interfaces.task.vo.TaskDetailReqVO;
-import com.tss.report.interfaces.task.vo.TaskDetailRespVO;
-import com.tss.report.interfaces.task.vo.TaskUpdateReqVO;
+import com.tss.report.interfaces.task.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -42,11 +40,10 @@ public class TeacherTaskController {
         taskInterface.updateTask(param);
     }
 
-    @ApiOperation(value = "实验任务列表", notes = "实验任务详情")
+    @ApiOperation(value = "实验任务列表", notes = "实验任务列表（分页）")
     @RequestMapping(value = "/getTaskList", method = RequestMethod.POST)
-    public TaskDetailRespVO getTaskList(@JsonParam(validation = true) TaskDetailReqVO param) {
-        // TODO
-        return taskInterface.getTaskDetail(param);
+    public PageInfo<TeacherTaskRespVO> getTaskList(@JsonParam(validation = true) TeacherTaskReqVO param) {
+        return taskInterface.getTeacherTaskList(param);
     }
 
 }

@@ -15,7 +15,7 @@ public class TaskDetailReqVO {
     @ApiModelProperty(value = "教师id", example = "1")
     @NotNull(message = "教师id不能为空")
     public Long teacherId;
-
+    
     public Long getTaskId() {
         return taskId;
     }
