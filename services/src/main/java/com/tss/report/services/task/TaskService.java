@@ -3,11 +3,9 @@ package com.tss.report.services.task;
 import com.tss.basic.common.util.JsonUtil;
 import com.tss.basic.common.util.ModelMapperUtil;
 import com.tss.basic.site.exception.DataCheckException;
+import com.tss.basic.site.util.TSSAssert;
 import com.tss.report.interfaces.task.TaskInterface;
-import com.tss.report.interfaces.task.vo.TaskCreateReqVO;
-import com.tss.report.interfaces.task.vo.TaskDetailReqVO;
-import com.tss.report.interfaces.task.vo.TaskDetailRespVO;
-import com.tss.report.interfaces.task.vo.TeacherCourseCurriculumProjectRespVO;
+import com.tss.report.interfaces.task.vo.*;
 import com.tss.report.services.task.dao.TaskClassDao;
 import com.tss.report.services.task.dao.TaskDao;
 import com.tss.report.services.task.feign.DataFeignService;
@@ -18,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,16 +63,15 @@ public class TaskService implements TaskInterface {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long createTask(TaskCreateReqVO param) {
         // 实验任务
         Task task = this.buildTask(param);
         int count = taskDao.insert(task);
-        if (count == 0 || task.getId() == null) {
-            LOG.error("save task error, param={}", JsonUtil.obj2json(param));
-            throw new DataCheckException("保存实验任务失败");
-        }
+        TSSAssert.isTrue((count > 0 && task.getId() != null), "保存实验任务失败", 
+                () -> LOG.error("save task error, param={}", JsonUtil.obj2json(param)));
         // 实验班级
-        this.saveTaskClass(param, task.getId());
+        this.saveTaskClass(task.getId(), task.getName(), param.getClassList());
         return task.getId();
     }
 
@@ -84,20 +82,37 @@ public class TaskService implements TaskInterface {
         return task;
     }
 
-    private void saveTaskClass(TaskCreateReqVO param, Long taskId) {
-        param.getClassList().stream().forEach(e -> {
+    private void saveTaskClass(Long taskId, String taskName, List<ClassBaseInfoVO> classList) {
+        classList.stream().forEach(e -> {
             TaskClass taskClass = new TaskClass();
             taskClass.setTaskId(taskId);
-            taskClass.setTaskName(param.getName());
+            taskClass.setTaskName(taskName);
             taskClass.setClassId(e.getClassId());
             taskClass.setClassName(e.getClassName());
             taskClass.setCreateTime(new Date());
             taskClass.setUpdateTime(new Date());
             int effect = taskClassDao.insert(taskClass);
             if (effect == 0) {
-                LOG.error("save task class error, param={}", JsonUtil.obj2json(param));
+                LOG.error("save task class error, taskId={}, taskName={}, classList={}", taskId, taskName, JsonUtil.obj2json(classList));
                 throw new DataCheckException("保存实验任务班级失败");
             }
         });
     }
+
+    @Override
+    public void updateTask(TaskUpdateReqVO param) {
+        Task task = taskDao.findById(param.getId());
+        TSSAssert.isNotNull(task, "实验任务id无效");
+        
+        Task newTask = ModelMapperUtil.strictMap(param, Task.class);
+        int count = taskDao.update(newTask);
+        TSSAssert.isTrue(count > 0, "更新实验任务失败",
+                () -> LOG.error("update task error, param={}", JsonUtil.obj2json(param)));
+
+        // 实验班级
+        taskClassDao.deleteByTaskId(param.getId());
+        this.saveTaskClass(param.getId(), newTask.getName(), param.getClassList());
+    }
+    
+    
 }

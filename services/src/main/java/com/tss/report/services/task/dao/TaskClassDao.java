@@ -15,4 +15,6 @@ public interface TaskClassDao {
     int update(TaskClass record);
 
     List<TaskClass> findByTaskId(Long taskId);
+
+    int deleteByTaskId(Long taskId);
 }

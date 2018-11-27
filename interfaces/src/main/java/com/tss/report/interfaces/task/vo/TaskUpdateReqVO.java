@@ -11,28 +11,12 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
-@ApiModel("创建实验任务请求参数")
-public class TaskCreateReqVO {
+@ApiModel("更新实验任务请求参数")
+public class TaskUpdateReqVO {
 
-    @ApiModelProperty(value = "学年", example = "2018-2019")
-    @NotBlank(message = "学年不能为空")
-    private String year;
-
-    @ApiModelProperty(value = "学期", example = "1")
-    @Range(min = 1, max = 2, message = "无效的学期")
-    private Integer term;
-
-    @ApiModelProperty(value = "课程分配id", example = "1")
-    @NotNull
-    private Long courseId;
-
-    @ApiModelProperty(value = "课程id", example = "1")
-    @NotNull
-    private Long curriculumId;
-
-    @ApiModelProperty(value = "课程名称", example = "数据结构")
-    @NotBlank(message = "课程名称不能为空")
-    private String curriculumName;
+    @ApiModelProperty(value = "实验任务id", example = "1")
+    @NotBlank(message = "实验任务id不能为空")
+    private Long id;
 
     @ApiModelProperty(value = "实验任务名称", example = "链表")
     @NotBlank(message = "实验任务名称不能为空")
@@ -53,12 +37,15 @@ public class TaskCreateReqVO {
     private Date deadlineTime;
 
     @ApiModelProperty(value = "附件名称", example = "报告.doc")
+    @NotNull
     private String attachName;
 
     @ApiModelProperty(value = "附件路径", example = "abcdefg")
+    @NotNull
     private String attachUrl;
 
     @ApiModelProperty(value = "描述", example = "描述")
+    @NotNull
     private String desc;
 
     @ApiModelProperty(value = "实验班级集合", example = "[1, 2]")
@@ -73,44 +60,12 @@ public class TaskCreateReqVO {
     @NotBlank(message = "教师姓名不能为空")
     private String teacherName;
 
-    public String getYear() {
-        return year;
+    public Long getId() {
+        return id;
     }
 
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public Integer getTerm() {
-        return term;
-    }
-
-    public void setTerm(Integer term) {
-        this.term = term;
-    }
-
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
-
-    public Long getCurriculumId() {
-        return curriculumId;
-    }
-
-    public void setCurriculumId(Long curriculumId) {
-        this.curriculumId = curriculumId;
-    }
-
-    public String getCurriculumName() {
-        return curriculumName;
-    }
-
-    public void setCurriculumName(String curriculumName) {
-        this.curriculumName = curriculumName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

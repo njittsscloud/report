@@ -109,4 +109,10 @@
         from njit_task_class
         where task_id = #{taskId} and del_flag = 0
     </select>
+    
+    <update id="deleteByTaskId">
+        update njit_task_class
+        set del_flag = 1 
+        where task_id = #{taskId} and del_flag = 0
+    </update>
 </mapper>

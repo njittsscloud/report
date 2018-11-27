@@ -5,6 +5,7 @@ import com.tss.report.interfaces.task.TaskInterface;
 import com.tss.report.interfaces.task.vo.TaskCreateReqVO;
 import com.tss.report.interfaces.task.vo.TaskDetailReqVO;
 import com.tss.report.interfaces.task.vo.TaskDetailRespVO;
+import com.tss.report.interfaces.task.vo.TaskUpdateReqVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -33,6 +34,12 @@ public class TaskController {
     @RequestMapping(value = "/createTask", method = RequestMethod.POST)
     public Long createTask(@JsonParam(validation = true) TaskCreateReqVO param) {
         return taskInterface.createTask(param);
+    }
+
+    @ApiOperation(value = "更新实验任务", notes = "更新实验任务")
+    @RequestMapping(value = "/updateTask", method = RequestMethod.POST)
+    public void updateTask(@JsonParam(validation = true) TaskUpdateReqVO param) {
+        taskInterface.updateTask(param);
     }
 
 }
