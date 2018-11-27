@@ -105,6 +105,7 @@ public class TaskService implements TaskInterface {
         TSSAssert.isNotNull(task, "实验任务id无效");
         
         Task newTask = ModelMapperUtil.strictMap(param, Task.class);
+        newTask.setUpdateTime(new Date());
         int count = taskDao.update(newTask);
         TSSAssert.isTrue(count > 0, "更新实验任务失败",
                 () -> LOG.error("update task error, param={}", JsonUtil.obj2json(param)));

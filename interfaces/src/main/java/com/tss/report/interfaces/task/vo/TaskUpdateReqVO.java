@@ -15,7 +15,7 @@ import java.util.List;
 public class TaskUpdateReqVO {
 
     @ApiModelProperty(value = "实验任务id", example = "1")
-    @NotBlank(message = "实验任务id不能为空")
+    @NotNull(message = "实验任务id不能为空")
     private Long id;
 
     @ApiModelProperty(value = "实验任务名称", example = "链表")
@@ -48,7 +48,7 @@ public class TaskUpdateReqVO {
     @NotNull
     private String desc;
 
-    @ApiModelProperty(value = "实验班级集合", example = "[1, 2]")
+    @ApiModelProperty(value = "实验班级集合", example = "[{'classId':1, 'className':'软嵌142'}]")
     @NotEmpty(message = "实验班级不能为空")
     private List<ClassBaseInfoVO> classList;
 

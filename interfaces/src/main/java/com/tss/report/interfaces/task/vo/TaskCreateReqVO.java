@@ -61,7 +61,7 @@ public class TaskCreateReqVO {
     @ApiModelProperty(value = "描述", example = "描述")
     private String desc;
 
-    @ApiModelProperty(value = "实验班级集合", example = "[1, 2]")
+    @ApiModelProperty(value = "实验班级集合", example = "[{'classId':1, 'className':'软嵌142'}]")
     @NotEmpty(message = "实验班级不能为空")
     private List<ClassBaseInfoVO> classList;
 
