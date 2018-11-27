@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "实验任务模块", tags = "TaskController", description = "实验任务模块")
+@Api(value = "教师实验任务模块", tags = "TeacherTaskController", description = "教师实验任务模块")
 @RestController
-@RequestMapping("/task")
-public class TaskController {
-    private static final Logger LOG = LoggerFactory.getLogger(TaskController.class);
+@RequestMapping("/task/teacher")
+public class TeacherTaskController {
+    private static final Logger LOG = LoggerFactory.getLogger(TeacherTaskController.class);
 
     @Autowired
     private TaskInterface taskInterface;
@@ -40,6 +40,13 @@ public class TaskController {
     @RequestMapping(value = "/updateTask", method = RequestMethod.POST)
     public void updateTask(@JsonParam(validation = true) TaskUpdateReqVO param) {
         taskInterface.updateTask(param);
+    }
+
+    @ApiOperation(value = "实验任务列表", notes = "实验任务详情")
+    @RequestMapping(value = "/getTaskList", method = RequestMethod.POST)
+    public TaskDetailRespVO getTaskList(@JsonParam(validation = true) TaskDetailReqVO param) {
+        // TODO
+        return taskInterface.getTaskDetail(param);
     }
 
 }
