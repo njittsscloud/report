@@ -1,5 +1,7 @@
 package com.tss.report.services.task.dao;
 
+import com.tss.report.interfaces.task.vo.StudentTaskReqVO;
+import com.tss.report.interfaces.task.vo.StudentTaskRespVO;
 import com.tss.report.interfaces.task.vo.TeacherTaskReqVO;
 import com.tss.report.interfaces.task.vo.TeacherTaskRespVO;
 import com.tss.report.services.task.po.Task;
@@ -20,4 +22,6 @@ public interface TaskDao {
     List<TeacherTaskRespVO> getTeacherTaskList(TeacherTaskReqVO param);
 
     List<Task> findByCourseIdAndTaskName(@Param("courseId") Long courseId, @Param("name") String name);
+
+    List<StudentTaskRespVO> getStudentTaskList(StudentTaskReqVO param);
 }

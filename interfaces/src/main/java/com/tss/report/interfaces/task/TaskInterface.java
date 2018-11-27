@@ -14,4 +14,6 @@ public interface TaskInterface {
     PageInfo<TeacherTaskRespVO> getTeacherTaskList(TeacherTaskReqVO param);
 
     Boolean publishTask(Long taskId);
+
+    PageInfo<StudentTaskRespVO> getStudentTaskList(StudentTaskReqVO param);
 }

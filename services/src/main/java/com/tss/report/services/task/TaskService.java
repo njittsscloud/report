@@ -145,5 +145,19 @@ public class TaskService implements TaskInterface {
         return count > 0;
     }
 
+    @Override
+    public PageInfo<StudentTaskRespVO> getStudentTaskList(StudentTaskReqVO param) {
+        if (CollectionUtils.isEmpty(param.getCourseIds())) {
+            return new PageInfo<>();
+        }
+
+        PageHelper.startPage(param.getPageParam().getPageNum(), param.getPageParam().getPageSize());
+        List<StudentTaskRespVO> taskList = taskDao.getStudentTaskList(param);
+        if (CollectionUtils.isNotEmpty(taskList)) {
+            return PageInfo.of(taskList);
+        }
+        return new PageInfo<>();
+    }
+
 
 }

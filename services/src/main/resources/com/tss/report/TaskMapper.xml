@@ -268,4 +268,38 @@
         </if>
         order by course_id asc, update_time desc
     </select>
+
+    <resultMap id="GetStudentTaskListResultMap" type="com.tss.report.interfaces.task.vo.StudentTaskRespVO">
+        <id column="id" jdbcType="BIGINT" property="taskId"/>
+        <result column="name" jdbcType="VARCHAR" property="taskName"/>
+        <result column="teacher_name" jdbcType="VARCHAR" property="teacherName"/>
+        <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime"/>
+        <result column="deadline_time" jdbcType="TIMESTAMP" property="deadlineTime"/>
+        <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime"/>
+        <result column="attach_name" jdbcType="VARCHAR" property="attachName"/>
+        <result column="attach_url" jdbcType="VARCHAR" property="attachUrl"/>
+        <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime"/>
+        <result column="desc" jdbcType="VARCHAR" property="desc"/>
+        <result column="curriculum_name" jdbcType="VARCHAR" property="curriculumName"/>
+    </resultMap>
+    <select id="getStudentTaskList" resultType="com.tss.report.interfaces.task.vo.StudentTaskReqVO"
+            resultMap="GetStudentTaskListResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from njit_task
+        where del_flag = 0 and `status` = 2
+        <if test="year != null">
+            and `year` = #{year}
+        </if>
+        <if test="term != null and term > 0">
+            and term = #{term}
+        </if>
+        <if test="courseIds != null and courseIds.size() > 0">
+            and course_id in
+            <foreach collection="courseIds" item="courseId" open="(" close=")" separator=",">
+                #{courseId}
+            </foreach>
+        </if>
+        order by course_id asc, publish_time desc
+    </select>
 </mapper>
