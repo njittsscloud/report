@@ -1,7 +1,7 @@
 package com.tss.report.web.task;
 
 import com.github.pagehelper.PageInfo;
-import com.tss.basic.site.argumentresolver.JsonParam;
+import com.tss.basic.site.argumentresolver.InternalJsonParam;
 import com.tss.report.interfaces.task.TaskInterface;
 import com.tss.report.interfaces.task.vo.*;
 import io.swagger.annotations.Api;
@@ -25,25 +25,25 @@ public class TeacherTaskController {
 
     @ApiOperation(value = "实验任务详情", notes = "实验任务详情")
     @RequestMapping(value = "/getTaskDetail", method = RequestMethod.POST)
-    public TaskDetailRespVO getTaskDetail(@JsonParam(validation = true) TaskDetailReqVO param) {
+    public TaskDetailRespVO getTaskDetail(@InternalJsonParam(validation = true) TaskDetailReqVO param) {
         return taskInterface.getTaskDetail(param);
     }
 
     @ApiOperation(value = "创建实验任务", notes = "创建实验任务")
     @RequestMapping(value = "/createTask", method = RequestMethod.POST)
-    public Long createTask(@JsonParam(validation = true) TaskCreateReqVO param) {
+    public Long createTask(@InternalJsonParam(validation = true) TaskCreateReqVO param) {
         return taskInterface.createTask(param);
     }
 
     @ApiOperation(value = "更新实验任务", notes = "更新实验任务")
     @RequestMapping(value = "/updateTask", method = RequestMethod.POST)
-    public void updateTask(@JsonParam(validation = true) TaskUpdateReqVO param) {
+    public void updateTask(@InternalJsonParam(validation = true) TaskUpdateReqVO param) {
         taskInterface.updateTask(param);
     }
 
     @ApiOperation(value = "实验任务列表", notes = "实验任务列表（分页）")
     @RequestMapping(value = "/getTaskList", method = RequestMethod.POST)
-    public PageInfo<TeacherTaskRespVO> getTaskList(@JsonParam(validation = true) TeacherTaskReqVO param) {
+    public PageInfo<TeacherTaskRespVO> getTaskList(@InternalJsonParam(validation = true) TeacherTaskReqVO param) {
         return taskInterface.getTeacherTaskList(param);
     }
 

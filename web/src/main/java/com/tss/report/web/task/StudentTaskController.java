@@ -1,7 +1,7 @@
 package com.tss.report.web.task;
 
 import com.github.pagehelper.PageInfo;
-import com.tss.basic.site.argumentresolver.JsonParam;
+import com.tss.basic.site.argumentresolver.InternalJsonParam;
 import com.tss.report.interfaces.task.TaskInterface;
 import com.tss.report.interfaces.task.vo.StudentTaskReqVO;
 import com.tss.report.interfaces.task.vo.StudentTaskRespVO;
@@ -22,7 +22,7 @@ public class StudentTaskController {
 
     @ApiOperation(value = "实验任务列表", notes = "实验任务列表（分页）")
     @RequestMapping(value = "/getTaskList", method = RequestMethod.POST)
-    public PageInfo<StudentTaskRespVO> getTaskList(@JsonParam(validation = true) StudentTaskReqVO param) {
+    public PageInfo<StudentTaskRespVO> getTaskList(@InternalJsonParam(validation = true) StudentTaskReqVO param) {
         return taskInterface.getStudentTaskList(param);
     }
 }
