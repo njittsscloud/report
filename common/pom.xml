@@ -16,4 +16,12 @@
     <name>common</name>
     <description>common</description>
 
+    <dependencies>
+        <!-- basic -->
+        <dependency>
+            <groupId>com.tss</groupId>
+            <artifactId>basic-site</artifactId>
+        </dependency>
+    </dependencies>
+    
 </project>

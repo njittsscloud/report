@@ -22,13 +22,6 @@
             <groupId>com.tss.report</groupId>
             <artifactId>common</artifactId>
         </dependency>
-
-        <!-- basic -->
-        <dependency>
-            <groupId>com.tss</groupId>
-            <artifactId>basic-site</artifactId>
-        </dependency>
     </dependencies>
-
 
 </project>
