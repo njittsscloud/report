@@ -9,7 +9,7 @@ public interface TaskInterface {
 
     Long createTask(TaskCreateReqVO param);
 
-    void updateTask(TaskUpdateReqVO param);
+    Boolean updateTask(TaskUpdateReqVO param);
 
     PageInfo<TeacherTaskRespVO> getTeacherTaskList(TeacherTaskReqVO param);
 

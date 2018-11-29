@@ -106,7 +106,7 @@ public class TaskService implements TaskInterface {
     }
 
     @Override
-    public void updateTask(TaskUpdateReqVO param) {
+    public Boolean updateTask(TaskUpdateReqVO param) {
         Task task = taskDao.findById(param.getId());
         TSSAssert.isNotNull(task, "实验任务id无效");
         
@@ -119,6 +119,7 @@ public class TaskService implements TaskInterface {
         // 实验班级
         taskClassDao.deleteByTaskId(param.getId());
         this.saveTaskClass(param.getId(), newTask.getName(), param.getClassList());
+        return Boolean.TRUE;
     }
 
     @Override

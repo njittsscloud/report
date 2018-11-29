@@ -37,8 +37,8 @@ public class TeacherTaskController {
 
     @ApiOperation(value = "更新实验任务", notes = "更新实验任务")
     @RequestMapping(value = "/updateTask", method = RequestMethod.POST)
-    public void updateTask(@InternalJsonParam(validation = true) TaskUpdateReqVO param) {
-        taskInterface.updateTask(param);
+    public Boolean updateTask(@InternalJsonParam(validation = true) TaskUpdateReqVO param) {
+        return taskInterface.updateTask(param);
     }
 
     @ApiOperation(value = "实验任务列表", notes = "实验任务列表（分页）")
