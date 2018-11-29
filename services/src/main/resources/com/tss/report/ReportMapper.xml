@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tss.report.services.report.dao.ReportDao">
+    <resultMap id="BaseResultMap" type="com.tss.report.services.report.po.Report">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="report_name" property="reportName" jdbcType="VARCHAR"/>
+        <result column="file_name" property="fileName" jdbcType="VARCHAR"/>
+        <result column="file_path" property="filePath" jdbcType="VARCHAR"/>
+        <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP"/>
+        <result column="correct_status" property="correctStatus" jdbcType="INTEGER"/>
+        <result column="score_type" property="scoreType" jdbcType="INTEGER"/>
+        <result column="score" property="score" jdbcType="VARCHAR"/>
+        <result column="task_id" property="taskId" jdbcType="BIGINT"/>
+        <result column="task_name" property="taskName" jdbcType="VARCHAR"/>
+        <result column="student_id" property="studentId" jdbcType="BIGINT"/>
+        <result column="student_name" property="studentName" jdbcType="VARCHAR"/>
+        <result column="student_no" property="studentNo" jdbcType="VARCHAR"/>
+        <result column="class_id" property="classId" jdbcType="BIGINT"/>
+        <result column="class_name" property="className" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="del_flag" property="delFlag" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.tss.report.services.report.po.Report" extends="BaseResultMap">
+        <result column="correct_content" property="correctContent" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, report_name, file_name, file_path, submit_time, correct_status, score_type, score,
+    task_id, task_name, student_id, student_name, student_no, class_id, class_name, create_time,
+    update_time, del_flag
+  </sql>
+    <sql id="Blob_Column_List">
+    correct_content
+  </sql>
+
+    <select id="findById" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from njit_report
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.tss.report.services.report.po.Report">
+        insert into njit_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="reportName != null">
+                report_name,
+            </if>
+            <if test="fileName != null">
+                file_name,
+            </if>
+            <if test="filePath != null">
+                file_path,
+            </if>
+            <if test="submitTime != null">
+                submit_time,
+            </if>
+            <if test="correctStatus != null">
+                correct_status,
+            </if>
+            <if test="scoreType != null">
+                score_type,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="taskId != null">
+                task_id,
+            </if>
+            <if test="taskName != null">
+                task_name,
+            </if>
+            <if test="studentId != null">
+                student_id,
+            </if>
+            <if test="studentName != null">
+                student_name,
+            </if>
+            <if test="studentNo != null">
+                student_no,
+            </if>
+            <if test="classId != null">
+                class_id,
+            </if>
+            <if test="className != null">
+                class_name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+            <if test="correctContent != null">
+                correct_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="reportName != null">
+                #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileName != null">
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="submitTime != null">
+                #{submitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="correctStatus != null">
+                #{correctStatus,jdbcType=INTEGER},
+            </if>
+            <if test="scoreType != null">
+                #{scoreType,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=VARCHAR},
+            </if>
+            <if test="taskId != null">
+                #{taskId,jdbcType=BIGINT},
+            </if>
+            <if test="taskName != null">
+                #{taskName,jdbcType=VARCHAR},
+            </if>
+            <if test="studentId != null">
+                #{studentId,jdbcType=BIGINT},
+            </if>
+            <if test="studentName != null">
+                #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="studentNo != null">
+                #{studentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="classId != null">
+                #{classId,jdbcType=BIGINT},
+            </if>
+            <if test="className != null">
+                #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=INTEGER},
+            </if>
+            <if test="correctContent != null">
+                #{correctContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.tss.report.services.report.po.Report">
+        update njit_report
+        <set>
+            <if test="reportName != null">
+                report_name = #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                file_path = #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="submitTime != null">
+                submit_time = #{submitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="correctStatus != null">
+                correct_status = #{correctStatus,jdbcType=INTEGER},
+            </if>
+            <if test="scoreType != null">
+                score_type = #{scoreType,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=VARCHAR},
+            </if>
+            <if test="taskId != null">
+                task_id = #{taskId,jdbcType=BIGINT},
+            </if>
+            <if test="taskName != null">
+                task_name = #{taskName,jdbcType=VARCHAR},
+            </if>
+            <if test="studentId != null">
+                student_id = #{studentId,jdbcType=BIGINT},
+            </if>
+            <if test="studentName != null">
+                student_name = #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="studentNo != null">
+                student_no = #{studentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="classId != null">
+                class_id = #{classId,jdbcType=BIGINT},
+            </if>
+            <if test="className != null">
+                class_name = #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=INTEGER},
+            </if>
+            <if test="correctContent != null">
+                correct_content = #{correctContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <resultMap id="GetTeacherReportListResultMap" type="com.tss.report.interfaces.report.vo.TeacherReportRespVO">
+        <id column="report_id" property="reportId" jdbcType="BIGINT"/>
+        <result column="report_name" property="reportName" jdbcType="VARCHAR"/>
+        <result column="file_name" property="fileName" jdbcType="VARCHAR"/>
+        <result column="file_path" property="filePath" jdbcType="VARCHAR"/>
+        <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP"/>
+        <result column="correct_status" property="correctStatus" jdbcType="INTEGER"/>
+        <result column="score" property="score" jdbcType="VARCHAR"/>
+        <result column="task_id" property="taskId" jdbcType="BIGINT"/>
+        <result column="task_name" property="taskName" jdbcType="VARCHAR"/>
+        <result column="student_id" property="studentId" jdbcType="BIGINT"/>
+        <result column="student_name" property="studentName" jdbcType="VARCHAR"/>
+        <result column="student_no" property="studentNo" jdbcType="VARCHAR"/>
+        <result column="class_name" property="className" jdbcType="VARCHAR"/>
+        <result column="curriculum_name" property="curriculumName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getTeacherReportList" parameterType="com.tss.report.interfaces.report.vo.TeacherReportReqVO" resultMap="GetTeacherReportListResultMap">
+        select r.id report_id, r.report_name, r.file_name, r.file_path, r.submit_time, r.correct_status, r.score,
+            r.task_id, r.task_name, r.student_id, r.student_name, r.student_no, r.class_id, r.class_name,
+            t.curriculum_name
+        from njit_report r
+          left join njit_task t on r.task_id = t.id
+        where r.del_flag = 0 and t.del_flag = 0
+        <if test="year != null">
+            and t.year = #{year}
+        </if>
+        <if test="term != null and term > 0">
+            and t.term = #{term}
+        </if>
+        <if test="courseId != null and courseId > 0">
+            and t.course_id = #{courseId}
+        </if>
+        <if test="taskId != null and taskId > 0">
+            and t.id = #{taskId}
+        </if>
+        <if test="classId != null and classId > 0">
+            and r.class_id = #{classId}
+        </if>
+        <if test="correctStatus != null and correctStatus > 0">
+            and r.correct_status = #{correctStatus}
+        </if>
+        order by r.task_id desc, r.classId asc, r.student_no asc
+    </select>
+</mapper>
