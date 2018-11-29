@@ -42,3 +42,29 @@ CREATE TABLE `njit_task_class` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table njit_report
+(
+   id                   bigint not null auto_increment comment 'id',
+   report_name          varchar(100) default '' comment '报告名称',
+   file_name            varchar(50) default '' comment '文件名称',
+   file_path            varchar(50) default '' comment '文件路径',
+   submit_time          datetime comment '提交时间',
+   correct_status       int(1) default 1 comment '批阅状态 1待批阅 2待发布 3已发布',
+   correct_content      text comment '批阅内容',
+   score_type           int(1) default 0 comment '分类类型 0未知 1等第制 2百分制',
+   score                varchar(50) default '' comment '得分',
+   task_id              bigint default -1 comment '实验任务id',
+   task_name            varchar(100) default '' comment '实验任务名称',
+   student_id           bigint default -1 comment '学生id',
+   student_name         varchar(50) default '' comment '学生姓名',
+   student_no           varchar(50) default '' comment '学号',
+   class_id             bigint default -1 comment '学生班级id',
+   class_name           varchar(50) default '' comment '学生班级名称',
+   create_time          datetime comment '创建时间',
+   update_time          datetime default CURRENT_TIMESTAMP comment '更新时间',
+   del_flag             int(1) default 0 comment '删除标志 0正常 1已删除',
+   primary key (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+alter table njit_report comment '报告表';
+
+
