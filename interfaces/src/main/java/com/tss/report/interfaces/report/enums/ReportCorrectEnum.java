@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  */
 public enum ReportCorrectEnum {
 
-    WAIT(1, "带批阅"),
+    WAIT(1, "待批阅"),
     UN_PUBLISH(2, "待发布"),
     PUBLISH(3, "已发布");
 

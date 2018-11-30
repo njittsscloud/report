@@ -17,4 +17,6 @@ public interface ReportInterface {
     GetStudentReportDetailByTaskIdRespVO getReportDetailByTaskId(GetStudentReportDetailByTaskIdReqVO param);
 
     GetStudentReportDetailByReportIdRespVO getReportDetailByReportId(Long reportId);
+
+    GetReportCorrectInfoByReportIdRespVO getReportCorrectInfoByReportId(Long reportId);
 }

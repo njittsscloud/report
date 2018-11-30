@@ -126,4 +126,18 @@ public class ReportService implements ReportInterface {
         resp.setCorrectStatusDesc(ReportCorrectEnum.getDescByValue(report.getCorrectStatus()));
         return resp;
     }
+
+    @Override
+    public GetReportCorrectInfoByReportIdRespVO getReportCorrectInfoByReportId(Long reportId) {
+        Report report = reportDao.findById(reportId);
+        TSSAssert.isNotNull(report, "无效的实验报告id");
+        Task task = taskDao.findById(report.getTaskId());
+        TSSAssert.isNotNull(report, "无效的实验任务id");
+
+        GetReportCorrectInfoByReportIdRespVO resp = ModelMapperUtil.strictMap(report, GetReportCorrectInfoByReportIdRespVO.class);
+        resp.setReportId(report.getId());
+        resp.setCurriculumName(task.getCurriculumName());
+        resp.setCorrectStatusDesc(ReportCorrectEnum.getDescByValue(report.getCorrectStatus()));
+        return resp;
+    }
 }

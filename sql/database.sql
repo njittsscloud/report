@@ -48,6 +48,7 @@ create table njit_report
    report_name          varchar(100) default '' comment '报告名称',
    file_name            varchar(50) default '' comment '文件名称',
    file_path            varchar(50) default '' comment '文件路径',
+   `desc`               varchar(200) default '' comment '报告描述',
    submit_time          datetime comment '提交时间',
    correct_status       int(1) default 1 comment '批阅状态 1待批阅 2待发布 3已发布',
    correct_content      text comment '批阅内容',
