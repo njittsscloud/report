@@ -5,6 +5,7 @@ import com.tss.basic.site.argumentresolver.InternalJsonParam;
 import com.tss.report.interfaces.report.ReportInterface;
 import com.tss.report.interfaces.report.vo.StudentReportReqVO;
 import com.tss.report.interfaces.report.vo.StudentReportRespVO;
+import com.tss.report.interfaces.report.vo.StudentUploadReportReqVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -27,6 +28,12 @@ public class StudentReportController {
     @RequestMapping(value = "/getStudentReportList", method = RequestMethod.POST)
     public PageInfo<StudentReportRespVO> getStudentReportList(@InternalJsonParam(validation = true) StudentReportReqVO param) {
         return reportInterface.getStudentReportList(param);
+    }
+
+    @ApiOperation(value = "上传报告", notes = "上传报告")
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public Long getStudentReportList(@InternalJsonParam(validation = true) StudentUploadReportReqVO param) {
+        return reportInterface.studentUploadReport(param);
     }
 
 }

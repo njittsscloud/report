@@ -41,7 +41,7 @@
         from njit_report
         where id = #{id,jdbcType=BIGINT}
     </select>
-    <insert id="insert" parameterType="com.tss.report.services.report.po.Report">
+    <insert id="insert" parameterType="com.tss.report.services.report.po.Report" useGeneratedKeys="true" keyProperty="id">
         insert into njit_report
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

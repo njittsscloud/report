@@ -2,18 +2,20 @@ package com.tss.report.services.report;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.tss.basic.common.util.ModelMapperUtil;
+import com.tss.basic.site.util.TSSAssert;
 import com.tss.report.interfaces.report.ReportInterface;
-import com.tss.report.interfaces.report.vo.StudentReportReqVO;
-import com.tss.report.interfaces.report.vo.StudentReportRespVO;
-import com.tss.report.interfaces.report.vo.TeacherReportReqVO;
-import com.tss.report.interfaces.report.vo.TeacherReportRespVO;
+import com.tss.report.interfaces.report.vo.*;
 import com.tss.report.services.report.dao.ReportDao;
+import com.tss.report.services.report.po.Report;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,5 +43,17 @@ public class ReportService implements ReportInterface {
             return PageInfo.of(reportList);
         }
         return new PageInfo<>();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Long studentUploadReport(StudentUploadReportReqVO param) {
+        Report report = ModelMapperUtil.strictMap(param, Report.class);
+        report.setSubmitTime(new Date());
+        report.setCreateTime(new Date());
+        report.setUpdateTime(new Date());
+        int count = reportDao.insert(report);
+        TSSAssert.isTrue(count > 0 && report.getId() != null, "保存实验报告失败！");
+        return report.getId();
     }
 }
