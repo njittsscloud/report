@@ -8,8 +8,8 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 
-@ApiModel("教师获取报告列表查询参数")
-public class TeacherReportReqVO {
+@ApiModel("学生获取报告列表查询参数")
+public class StudentReportReqVO {
 
     @ApiModelProperty(value = "学年", example = "2018-2019")
     @NotEmpty(message = "学年不能为空")
@@ -19,9 +19,9 @@ public class TeacherReportReqVO {
     @Range(min = 1, max = 2, message = "学期参数无效")
     private Integer term;
 
-    @ApiModelProperty(value = "教师id", example = "1")
-    @NotNull(message = "教师id不能为空")
-    private Long teacherId;
+    @ApiModelProperty(value = "学生id", example = "1")
+    @NotNull(message = "学生id不能为空")
+    private Long studentId;
 
     @ApiModelProperty(value = "课程分配id", example = "1")
     private Long courseId;
@@ -29,14 +29,8 @@ public class TeacherReportReqVO {
     @ApiModelProperty(value = "实验任务id", example = "1")
     private Long taskId;
 
-    @ApiModelProperty(value = "班级id", example = "1")
-    private Long classId;
-
-    @ApiModelProperty(value = "批阅状态 0全部 1待批阅 2待发布 3已发布", example = "0")
-    private Integer correctStatus;
-
     @ApiModelProperty(value = "分页参数", example = "{'pageNum':1, 'pageSize':10}")
-    @NotNull(message = "无分页参数信息")
+    @NotNull(message = "无分页信息")
     private PageParam pageParam;
 
     public PageParam getPageParam() {
@@ -79,27 +73,11 @@ public class TeacherReportReqVO {
         this.taskId = taskId;
     }
 
-    public Long getClassId() {
-        return classId;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public void setClassId(Long classId) {
-        this.classId = classId;
-    }
-
-    public Integer getCorrectStatus() {
-        return correctStatus;
-    }
-
-    public void setCorrectStatus(Integer correctStatus) {
-        this.correctStatus = correctStatus;
-    }
-
-    public Long getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 }

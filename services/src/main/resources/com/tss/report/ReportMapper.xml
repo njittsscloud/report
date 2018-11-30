@@ -245,13 +245,7 @@
             t.curriculum_name
         from njit_report r
           left join njit_task t on r.task_id = t.id
-        where r.del_flag = 0 and t.del_flag = 0
-        <if test="year != null">
-            and t.year = #{year}
-        </if>
-        <if test="term != null and term > 0">
-            and t.term = #{term}
-        </if>
+        where r.del_flag = 0 and t.del_flag = 0 and t.year = #{year} and t.term = #{term} and t.teacher_id = #{teacherId}
         <if test="courseId != null and courseId > 0">
             and t.course_id = #{courseId}
         </if>
@@ -264,6 +258,35 @@
         <if test="correctStatus != null and correctStatus > 0">
             and r.correct_status = #{correctStatus}
         </if>
-        order by r.task_id desc, r.classId asc, r.student_no asc
+        order by t.course_id asc, r.class_id asc, r.student_no asc
+    </select>
+
+    <resultMap id="GetStudentReportListResultMap" type="com.tss.report.interfaces.report.vo.StudentReportRespVO">
+        <id column="report_id" property="reportId" jdbcType="BIGINT"/>
+        <result column="report_name" property="reportName" jdbcType="VARCHAR"/>
+        <result column="file_name" property="fileName" jdbcType="VARCHAR"/>
+        <result column="file_path" property="filePath" jdbcType="VARCHAR"/>
+        <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP"/>
+        <result column="correct_status" property="correctStatus" jdbcType="INTEGER"/>
+        <result column="score" property="score" jdbcType="VARCHAR"/>
+        <result column="task_id" property="taskId" jdbcType="BIGINT"/>
+        <result column="task_name" property="taskName" jdbcType="VARCHAR"/>
+        <result column="teacher_id" property="teacherId" jdbcType="BIGINT"/>
+        <result column="teacher_name" property="teacherName" jdbcType="VARCHAR"/>
+        <result column="curriculum_name" property="curriculumName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getStudentReportList" parameterType="com.tss.report.interfaces.report.vo.StudentReportReqVO" resultMap="GetStudentReportListResultMap">
+        select r.id report_id, r.report_name, r.file_name, r.file_path, r.submit_time, r.correct_status, r.score,
+          r.task_id, r.task_name, t.teacher_id, t.teacher_name, t.curriculum_name
+        from njit_report r
+        left join njit_task t on r.task_id = t.id
+        where r.del_flag = 0 and t.del_flag = 0 and t.year = #{year} and t.term = #{term} and r.student_id = #{studentId}
+        <if test="courseId != null and courseId > 0">
+            and t.course_id = #{courseId}
+        </if>
+        <if test="taskId != null and taskId > 0">
+            and t.id = #{taskId}
+        </if>
+        order by t.course_id asc, t.publish_time desc
     </select>
 </mapper>

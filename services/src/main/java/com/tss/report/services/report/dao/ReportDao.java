@@ -1,6 +1,8 @@
 package com.tss.report.services.report.dao;
 
 
+import com.tss.report.interfaces.report.vo.StudentReportReqVO;
+import com.tss.report.interfaces.report.vo.StudentReportRespVO;
 import com.tss.report.interfaces.report.vo.TeacherReportReqVO;
 import com.tss.report.interfaces.report.vo.TeacherReportRespVO;
 import com.tss.report.services.report.po.Report;
@@ -18,4 +20,6 @@ public interface ReportDao {
     int update(Report record);
 
     List<TeacherReportRespVO> getTeacherReportList(TeacherReportReqVO param);
+
+    List<StudentReportRespVO> getStudentReportList(StudentReportReqVO param);
 }
