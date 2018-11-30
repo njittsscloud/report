@@ -24,6 +24,11 @@ public class Report {
     private String filePath;
 
     /**
+     * 描述
+     */
+    private String desc;
+
+    /**
      * 提交时间
      */
     private Date submitTime;
@@ -248,5 +253,13 @@ public class Report {
 
     public void setCorrectContent(String correctContent) {
         this.correctContent = correctContent;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

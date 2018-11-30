@@ -9,6 +9,8 @@ import com.tss.report.interfaces.report.enums.ReportCorrectEnum;
 import com.tss.report.interfaces.report.vo.*;
 import com.tss.report.services.report.dao.ReportDao;
 import com.tss.report.services.report.po.Report;
+import com.tss.report.services.task.dao.TaskDao;
+import com.tss.report.services.task.po.Task;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,8 @@ public class ReportService implements ReportInterface {
 
     @Autowired
     private ReportDao reportDao;
+    @Autowired
+    private TaskDao taskDao;
 
     @Override
     public PageInfo<TeacherReportRespVO> getTeacherReportList(TeacherReportReqVO param) {
@@ -85,5 +89,41 @@ public class ReportService implements ReportInterface {
     public Boolean teacherPublishReport(TeacherPublishReportReqVO param) {
         int count = reportDao.publishReport(param.getReportIds());
         return count > 0;
+    }
+
+    @Override
+    public GetStudentReportDetailByTaskIdRespVO getReportDetailByTaskId(GetStudentReportDetailByTaskIdReqVO param) {
+        Task task = taskDao.findById(param.getTaskId());
+        TSSAssert.isNotNull(task, "无效的实验任务id");
+
+        GetStudentReportDetailByTaskIdRespVO resp = new GetStudentReportDetailByTaskIdRespVO();
+        resp.setReportName(task.getName() + "-" + param.getStudentNo());
+        resp.setTaskId(task.getId());
+        resp.setTaskName(task.getName());
+        resp.setTeacherId(task.getTeacherId());
+        resp.setTeacherName(task.getTeacherName());
+        resp.setCurriculumName(task.getCurriculumName());
+        resp.setStudentId(param.getStudentId());
+        resp.setStudentName(param.getStudentName());
+        resp.setStudentNo(param.getStudentNo());
+        resp.setClassId(param.getClassId());
+        resp.setClassName(param.getClassName());
+        return resp;
+    }
+
+    @Override
+    public GetStudentReportDetailByReportIdRespVO getReportDetailByReportId(Long reportId) {
+        Report report = reportDao.findById(reportId);
+        TSSAssert.isNotNull(report, "无效的实验报告id");
+        Task task = taskDao.findById(report.getTaskId());
+        TSSAssert.isNotNull(report, "无效的实验任务id");
+        
+        GetStudentReportDetailByReportIdRespVO resp = ModelMapperUtil.strictMap(report, GetStudentReportDetailByReportIdRespVO.class);
+        resp.setReportId(report.getId());
+        resp.setTeacherId(task.getTeacherId());
+        resp.setTeacherName(task.getTeacherName());
+        resp.setCurriculumName(task.getCurriculumName());
+        resp.setCorrectStatusDesc(ReportCorrectEnum.getDescByValue(report.getCorrectStatus()));
+        return resp;
     }
 }

@@ -13,4 +13,8 @@ public interface ReportInterface {
     Boolean teacherCorrectReport(TeacherCorrectReportReqVO param);
 
     Boolean teacherPublishReport(TeacherPublishReportReqVO param);
+
+    GetStudentReportDetailByTaskIdRespVO getReportDetailByTaskId(GetStudentReportDetailByTaskIdReqVO param);
+
+    GetStudentReportDetailByReportIdRespVO getReportDetailByReportId(Long reportId);
 }
