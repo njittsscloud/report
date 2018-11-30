@@ -3,6 +3,8 @@ package com.tss.report.web.report;
 import com.github.pagehelper.PageInfo;
 import com.tss.basic.site.argumentresolver.InternalJsonParam;
 import com.tss.report.interfaces.report.ReportInterface;
+import com.tss.report.interfaces.report.vo.TeacherCorrectReportReqVO;
+import com.tss.report.interfaces.report.vo.TeacherPublishReportReqVO;
 import com.tss.report.interfaces.report.vo.TeacherReportReqVO;
 import com.tss.report.interfaces.report.vo.TeacherReportRespVO;
 import io.swagger.annotations.Api;
@@ -27,6 +29,18 @@ public class TeacherReportController {
     @RequestMapping(value = "/getTeacherReportList", method = RequestMethod.POST)
     public PageInfo<TeacherReportRespVO> getTeacherReportList(@InternalJsonParam(validation = true) TeacherReportReqVO param) {
         return reportInterface.getTeacherReportList(param);
+    }
+
+    @ApiOperation(value = "教师批阅报告", notes = "教师批阅报告")
+    @RequestMapping(value = "/correctReport", method = RequestMethod.POST)
+    public Boolean correctReport(@InternalJsonParam(validation = true) TeacherCorrectReportReqVO param) {
+        return reportInterface.teacherCorrectReport(param);
+    }
+
+    @ApiOperation(value = "教师发布成绩", notes = "教师发布成绩")
+    @RequestMapping(value = "/publishReport", method = RequestMethod.POST)
+    public Boolean correctReport(@InternalJsonParam(validation = true) TeacherPublishReportReqVO param) {
+        return reportInterface.teacherPublishReport(param);
     }
 
 }

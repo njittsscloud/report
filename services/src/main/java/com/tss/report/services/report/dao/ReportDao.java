@@ -22,4 +22,6 @@ public interface ReportDao {
     List<TeacherReportRespVO> getTeacherReportList(TeacherReportReqVO param);
 
     List<StudentReportRespVO> getStudentReportList(StudentReportReqVO param);
+
+    int publishReport(List<Long> reportIds);
 }

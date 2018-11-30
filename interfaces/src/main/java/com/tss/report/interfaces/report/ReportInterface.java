@@ -9,4 +9,8 @@ public interface ReportInterface {
     PageInfo<StudentReportRespVO> getStudentReportList(StudentReportReqVO param);
 
     Long studentUploadReport(StudentUploadReportReqVO param);
+
+    Boolean teacherCorrectReport(TeacherCorrectReportReqVO param);
+
+    Boolean teacherPublishReport(TeacherPublishReportReqVO param);
 }

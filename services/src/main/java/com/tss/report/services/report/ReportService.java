@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.tss.basic.common.util.ModelMapperUtil;
 import com.tss.basic.site.util.TSSAssert;
 import com.tss.report.interfaces.report.ReportInterface;
+import com.tss.report.interfaces.report.enums.ReportCorrectEnum;
 import com.tss.report.interfaces.report.vo.*;
 import com.tss.report.services.report.dao.ReportDao;
 import com.tss.report.services.report.po.Report;
@@ -55,5 +56,34 @@ public class ReportService implements ReportInterface {
         int count = reportDao.insert(report);
         TSSAssert.isTrue(count > 0 && report.getId() != null, "保存实验报告失败！");
         return report.getId();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean teacherCorrectReport(TeacherCorrectReportReqVO param) {
+        Report report = reportDao.findById(param.getReportId());
+        TSSAssert.isNotNull(report, "无效的报告id");
+        
+        Report correct = new Report();
+        correct.setId(param.getReportId());
+        correct.setCorrectStatus(this.correctStatus(report.getCorrectStatus()));
+        correct.setCorrectContent(param.getCorrectContent());
+        correct.setScoreType(param.getScoreType());
+        correct.setScore(param.getScore());
+        correct.setUpdateTime(new Date());
+        int count = reportDao.update(correct);
+        return count > 0;
+    }
+
+    private Integer correctStatus(Integer correctStatus) {
+        return (correctStatus == ReportCorrectEnum.WAIT.value() || correctStatus == ReportCorrectEnum.UN_PUBLISH.value()) ? 
+                ReportCorrectEnum.UN_PUBLISH.value() : ReportCorrectEnum.PUBLISH.value();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean teacherPublishReport(TeacherPublishReportReqVO param) {
+        int count = reportDao.publishReport(param.getReportIds());
+        return count > 0;
     }
 }
