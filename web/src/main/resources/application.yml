@@ -19,7 +19,7 @@ mybatis:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://dev.tss.com:8090/eureka/
+      defaultZone: http://localhost:8090/eureka/
   instance:
     metadata-map:
       management:
